@@ -1,0 +1,9 @@
+package SVO_1310;
+
+public enum Stage {
+	STAGE_PAUSED,
+    STAGE_FIRST_FRAME,
+    STAGE_SECOND_FRAME,
+    STAGE_DEFAULT_FRAME,
+    STAGE_RELOCALIZING
+}
