@@ -3,9 +3,9 @@ package SVO_1310;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Queue;
+import java.util.Random;
 import java.util.concurrent.locks.Condition;
 
-import org.apache.commons.math3.distribution.NormalDistribution;
 
 import matrix_types.JamaUtils;
 import matrix_types.Vector3d;
@@ -192,6 +192,8 @@ public class DepthFilter {
 		if(Float.isNaN(norm_scale))
 			return;
 		// ToDo may need to create my own normal distribution method rather than use apache_commons
+		Random rand = new Random();
+//		double nd = rand.nextGaussian()*seed.get_mu()+norm_scale;
 		NormalDistribution nd = new NormalDistribution(seed.get_mu(), norm_scale);
 		float s2 = (float) (1./(1./seed.get_sigma2() + 1./tau2));
 		float m = s2*(seed.get_mu()/seed.get_sigma2() + x/tau2);

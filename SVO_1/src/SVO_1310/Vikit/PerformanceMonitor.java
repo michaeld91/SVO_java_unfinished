@@ -7,7 +7,6 @@ import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-import org.apache.commons.math3.util.MultidimensionalCounter.Iterator;
 
 import SVO_1310.Map;
 

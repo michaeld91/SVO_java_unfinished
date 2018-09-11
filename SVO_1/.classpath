@@ -7,8 +7,6 @@
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C::/opencv/build/java/x64/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/michael/Downloads/vecmath-1.5.2.jar"/>
-	<classpathentry kind="lib" path="/home/michael/Downloads/commons-math3-3.6.1/commons-math3-3.6.1.jar"/>
 	<classpathentry kind="lib" path="/home/michael/Downloads/Jama-1.0.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -1,6 +1,9 @@
 package SVO_1310.Vikit;
 
+import java.io.ObjectInputStream.GetField;
+
 import matrix_types.Vector;
+import matrix_types.Vector6d;
 import Sophus.Se3;
 
 public class Img_Align extends NLLSSolver{
@@ -26,7 +29,7 @@ public class Img_Align extends NLLSSolver{
 	// ToDO this method is already in SparseImgAlign, so may not be required.
 	public static boolean solve() {
 		
-		  x_ = new Vector(H_.chol().solve(Jres_.times(-1)).getArray());
+		  setx_(new Vector6d(getH_().chol().solve(getJres_().times(-1)).getArray()));
 		  if(Double.isNaN(x_.get(0)))
 			  return false;
 		  return true;

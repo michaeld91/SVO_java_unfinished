@@ -12,7 +12,7 @@ import Sophus.So3;
 public class NLLSSolver {
 	
 	// ToDo D and T should be set somewhere!
-	protected int D = 6; // Dimension of the residual	// ToDo:: Note that D has been set to 6, but in the C++ is a variable.
+	protected static int D = 6; // Dimension of the residual	// ToDo:: Note that D has been set to 6, but in the C++ is a variable.
 	protected ModelType T; // Type of the model, e.g Se2, Se3
 
 	protected int n_iter_; // Number of Iterations
@@ -31,9 +31,9 @@ public class NLLSSolver {
 	protected ScaleEstimator scale_estimator_;	//ToDo Changed from ScaleEstimatorPtr to ScaleEstimator
 
 
-	protected Matrix H_; 					// Matrix<double, D, D> H_; //!< Hessian approximation
-	protected Matrix Jres_; 				// Matrix<double, D, 1> Jres_; //!< Jacobian x Residual
-	protected Vector6d x_ = new Vector6d(D);					//  Matrix<double, D, 1>  x_;       //!< update step
+	private static Matrix H_; 					// Matrix<double, D, D> H_; //!< Hessian approximation
+	private static Matrix Jres_; 				// Matrix<double, D, 1> Jres_; //!< Jacobian x Residual
+	protected static Vector6d x_ = new Vector6d(D);					//  Matrix<double, D, 1>  x_;       //!< update step
 	protected boolean have_prior_;
 
 	protected double chi2_;
@@ -101,8 +101,8 @@ public class NLLSSolver {
 			rho_ = 0;
 			startIteration();	// ToDo should change to use SparseImgAlign
 			
-			H_ = new Matrix(D,D);	// All values set to zero.
-			Jres_ = new Vector6d();// ToDo:: changed from Matrix(D,1);
+			setH_(new Matrix(D,D));	// All values set to zero.
+			setJres_(new Vector6d());// ToDo:: changed from Matrix(D,1);
 			
 			// compute initial error
 			n_meas_ = 0;
@@ -195,5 +195,25 @@ public class NLLSSolver {
 	private void update(Se3 T_curold_from_ref, Se3 T_curnew_from_ref)
 	{
 		T_curnew_from_ref = T_curold_from_ref.times(Se3.exp(x_.times(-1))); //SE3::exp(-x_);	// ToDo Model Type: type of the model, e.g. SE2, SE3
+	}
+	public static Matrix getH_() {
+		return H_;
+	}
+	public void setH_(Matrix h_) {
+		H_ = h_;
+	}
+	public Vector6d getx_()
+	{
+		return x_;
+	}
+	public static void setx_(Vector6d x)
+	{
+		x_ = x;
+	}
+	public static Matrix getJres_() {
+		return Jres_;
+	}
+	public void setJres_(Matrix jres_) {
+		Jres_ = jres_;
 	}
 }

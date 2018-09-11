@@ -1,11 +1,9 @@
 package Sophus;
 
-
-import org.apache.commons.math3.exception.NullArgumentException;
-
 import matrix_types.Matrix3d;
 import matrix_types.Vector3d;
-import Jama.Matrix;
+
+
 //import javax.vecmath.GMatrix;
  
 public class So3 {

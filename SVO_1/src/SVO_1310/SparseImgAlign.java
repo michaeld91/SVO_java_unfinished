@@ -334,8 +334,8 @@ public class SparseImgAlign extends NLLSSolver	// extends/implements vik::NLLSSo
 						Vector6d J = new Vector6d(J_vals);
 						Vector6d jT_times_weight = J.times(weight);	// No transpose as it is taken into account in the times method.
 						Matrix6d j_times_jT = J.times(jT_times_weight);
-						H_.plusEquals(j_times_jT);//J.times(J.transpose().times(weight)));	// ToDo noalias() has been removed
-						Jres_ = Jres_.minus(J.times(res*weight));			// ToDo noalias() has been removed
+						getH_().plusEquals(j_times_jT);//J.times(J.transpose().times(weight)));	// ToDo noalias() has been removed
+						setJres_(getJres_().minus(J.times(res*weight)));			// ToDo noalias() has been removed
 						if(display_){
 							//resimg_.at((int) v_cur+y-patch_halfsize_, (int) u_cur+x-patch_halfsize_) = res/255;	// ToDo is this setting a value of Mat at a coordinate as res/255?
 							resimg_.put((int) v_cur+y-patch_halfsize_, (int) u_cur+x-patch_halfsize_, res/255);		// ToDo this should replace the above, when OpenCV Java is installed
@@ -360,7 +360,7 @@ public class SparseImgAlign extends NLLSSolver	// extends/implements vik::NLLSSo
 	}
 	public int solve()
 	{
-		x_ = new Vector6d(H_.chol().solve(Jres_).getArray());
+		x_ = new Vector6d(getH_().chol().solve(getJres_()).getArray());
 		if(Double.isNaN(x_.get(0, 0))) //[0]))
 			return 0;
 		return 1;
@@ -393,7 +393,7 @@ public class SparseImgAlign extends NLLSSolver	// extends/implements vik::NLLSSo
 	{
 		double sigma_i_sq = 5e-4 * 255 * 255;	// image noise
 		Matrix I = new Matrix(6,6);
-		I = H_.times(1/sigma_i_sq);				// H (Hessian approximation) from nlls_solver
+		I = getH_().times(1/sigma_i_sq);				// H (Hessian approximation) from nlls_solver
 		return I;
 	}
 
